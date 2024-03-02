@@ -1,7 +1,11 @@
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
-import { StyledEngineProvider, ThemeProvider, createTheme } from "@mui/material/styles";
+import {
+  StyledEngineProvider,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material/styles";
 import PropTypes from "prop-types";
 import { prefixer } from "stylis";
 import rtlPlugin from "stylis-plugin-rtl";
@@ -41,12 +45,26 @@ const theme = createTheme({
         container: rootElement,
       },
     },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontWeight: 300,
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontWeight: 400,
+        },
+      },
+    },
   },
 });
 const cacheRtl = createCache({
   key: "muirtl",
   stylisPlugins: [prefixer, rtlPlugin],
-  prepend:true,
+  prepend: true,
 });
 
 function ThemeContext({ children }) {

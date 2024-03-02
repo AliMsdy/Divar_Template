@@ -1,4 +1,4 @@
-import { Loader } from "@/components/modules/Loader";
+import { Loader } from "@/components";
 import { useQueryCall } from "@/hooks/useServer";
 import { Layout } from "@/layout";
 import { lazyLoad } from "@/utils/lazyLoad";
@@ -15,7 +15,6 @@ function Router() {
     url: "/user/whoami",
   });
   const isUserLoggedIn = !!userInfos;
-  console.log("isUserLoggedIn", isUserLoggedIn);
   if (isLoading) return <Loader />;
   return (
     <Suspense fallback={<Loader />}>

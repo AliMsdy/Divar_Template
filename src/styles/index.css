@@ -30,3 +30,7 @@ input,
 select {
   font-family: inherit;
 }
+.Mui-disabled {
+  pointer-events: auto !important;
+  cursor: not-allowed !important;
+}
