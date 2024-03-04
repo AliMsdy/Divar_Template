@@ -6,9 +6,7 @@ function CategoryList() {
   const { data: categories, isLoading } = useQueryCall(["Categories"], {
     url: "/category",
   });
-  console.log(categories);
   if (isLoading) return <Loader />;
-
   return (
     <Box className="space-y-4">
       {categories.map((category) => (

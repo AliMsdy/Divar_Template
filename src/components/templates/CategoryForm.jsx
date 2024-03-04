@@ -43,7 +43,6 @@ function CategoryForm() {
   });
   const onSubmit = (data) => {
     setOpen(true);
-    console.log(data);
     submitNewCategory({
       method: "POST",
       url: "/category",

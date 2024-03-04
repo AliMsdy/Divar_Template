@@ -4,11 +4,11 @@ import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 function CheckOtpFrom({ mobile, setStep }) {
   const queryClient = useQueryClient();
-
   const navigate = useNavigate();
   const {
     register,
@@ -19,14 +19,19 @@ function CheckOtpFrom({ mobile, setStep }) {
       code: "",
     },
   });
-  const { mutate: sendCodeToServer } = useMutateCall("checkOTP", {
+  const { mutate: sendOTPCode } = useMutateCall(["sendOTPCode"], {
+    onError: () => {
+      toast.error("ارسال کد با خطا مواجه شده... دوباره تلاش کنید");
+    },
+  });
+  const { mutate: sendCodeToServer } = useMutateCall(["CheckOTP"], {
     onSuccess: async ({ data }) => {
       setCookie(data);
+      navigate("/dashboard");
       await queryClient.refetchQueries(["Profile"]);
-      navigate("/");
     },
-    onError: (error) => {
-      console.log("error", error);
+    onError: () => {
+      toast.error("کد وارد شده اشتباه است.... دوباره تلاش کنید");
     },
   });
 
@@ -93,9 +98,22 @@ function CheckOtpFrom({ mobile, setStep }) {
           <Button variant="contained" type="submit">
             ورود
           </Button>
-          <Button variant="outlined" onClick={() => setStep(1)}>
-            تغییر شماره موبایل
-          </Button>
+          <Stack direction="row" gap={2}>
+            <Button variant="outlined" onClick={() => setStep(1)}>
+              تغییر شماره موبایل
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                sendOTPCode({
+                  url: "/auth/send-otp",
+                  data: { mobile },
+                });
+              }}
+            >
+              ارسال دوباره کد
+            </Button>
+          </Stack>
         </Box>
       </Stack>
     </form>

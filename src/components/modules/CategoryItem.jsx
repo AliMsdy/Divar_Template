@@ -41,6 +41,7 @@ function CategoryItem({ name, _id, slug, icon }) {
       <ModalComponent
         open={open}
         setOpen={setOpen}
+        message="آیا از حذف دسته بندی مطمئن هستید؟"
         clickHandler={() =>
           deleteCategory({
             method: "DELETE",

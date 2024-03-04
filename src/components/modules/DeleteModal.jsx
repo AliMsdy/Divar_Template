@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 
-function ModalComponent({ clickHandler, open, setOpen }) {
+function ModalComponent({ clickHandler, open, setOpen,message }) {
   return (
     <Modal
       open={open}
@@ -25,7 +25,7 @@ function ModalComponent({ clickHandler, open, setOpen }) {
       <Fade in={open}>
         <Box className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] shadow-md p-4 bg-white rounded-md">
           <Typography id="transition-modal-title" variant="h6" component="h2">
-            آیا از حذف مطمئن هستید؟
+            {message}
           </Typography>
           <Stack direction="row" justifyContent="flex-end" gap={3} mt={4}>
             <Button
@@ -53,6 +53,7 @@ function ModalComponent({ clickHandler, open, setOpen }) {
 ModalComponent.propTypes = {
   clickHandler: PropTypes.func.isRequired,
   open:PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired
+  setOpen: PropTypes.func.isRequired,
+  message:PropTypes.string.isRequired
 };
 export { ModalComponent };

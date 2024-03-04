@@ -2,6 +2,7 @@ import { useMutateCall } from "@/hooks/useServer";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 function SendOtpForm({ setStep, setMobile, mobile }) {
   const {
     register,
@@ -13,16 +14,17 @@ function SendOtpForm({ setStep, setMobile, mobile }) {
       mobile: mobile === "" ? "" : mobile,
     },
   });
-  const { mutate: sendPhoneNumberToServer } = useMutateCall("auth", {
+  const { mutate: sendPhoneNumberToServer } = useMutateCall(["sendOTPCode"], {
     onSuccess: () => {
       setStep(2);
     },
-    onError: () => {},
+    onError: () => {
+      toast.error("ارسال کد با خطا مواجه شده... دوباره تلاش کنید");
+    },
   });
 
   const onSubmit = (mobile) => {
     sendPhoneNumberToServer({
-      method: "POST",
       url: "/auth/send-otp",
       data: mobile,
     });
@@ -62,7 +64,8 @@ function SendOtpForm({ setStep, setMobile, mobile }) {
             required: "لطفا شماره موبایل خود را وارد کنید",
             pattern: {
               value: /^(\+98|0)?9\d{9}$/,
-              message: "لطفا شماره موبایل خود را به صورت صحیح وارد کنید **",
+              message:
+                "لطفا شماره موبایل خود را به صورت صحیح (به صورت انگلیسی) وارد کنید **",
             },
           })}
           onChange={async (e) => {
