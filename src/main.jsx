@@ -10,7 +10,7 @@ const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       retryOnMount: false,
-      retry: 1,
+      retry: 0,
       retryDelay: 3000,
       gcTime: 30 * 60 * 1000, // half an hour caches the data (default : 5min)
       staleTime: 60 * 60 * 1000, // this option won't refetch teh data until the 60 mins(default: 0 second)

@@ -23,7 +23,9 @@ function Router() {
           <Route index element={<HomePage />} />
           <Route
             path="dashboard"
-            element={isUserLoggedIn ? <Dashboard /> : <Navigate to="/auth" />}
+            element={
+              isUserLoggedIn ? <Dashboard /> : <Navigate to="/auth" replace />
+            }
           />
           <Route
             path="admin"
