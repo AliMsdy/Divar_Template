@@ -23,10 +23,9 @@ import { lazy } from "react";
 //   });
 // }
 export function lazyLoad(path, moduleName) {
-  return lazy(() => {
-    const promise = import(path);
-    return promise.then((module) => ({
-      default: module[moduleName],
-    }));
-  });
+  return lazy(() =>
+    import(path).then((module) => {
+      return { default: module[moduleName] };
+    })
+  );
 }
